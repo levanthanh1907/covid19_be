@@ -73,6 +73,18 @@ class ProjectRepository extends BaseRepository<IProject> {
       }
     } catch (error) {}
   }
+
+  public async findProjectByName(name : string) {
+    try {
+      const project = await Project.findOne({name })
+      
+      if(!project) return
+      return project
+    } catch (error) {
+
+      console.log(error)
+    }
+  }
 }
 
 export = new ProjectRepository();

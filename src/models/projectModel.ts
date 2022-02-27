@@ -8,7 +8,7 @@ export const ProjectSchema: Schema = new Schema(
   {
     _id: Types.ObjectId,
     name: { type: String, require: true, unique: true },
-    code: { type: String, require: true, unique: true },
+    properties: { type: String, require: true, unique: true },
     status: { type: Number, enum: Object.values(ProjectStatus) },
     timeStart: { type: Date, default: Date.now },
     timeEnd: { type: Date, default: Date.now },

@@ -81,6 +81,15 @@ class UserRepository extends BaseRepository<IUser> {
       throw error;
     }
   }
+
+  public async findUserNotPagging() {
+    try {
+      let findUser = await User.find().select("id fullName TreatmentHospital avatarPath");
+      return findUser;
+    } catch (error) {
+      throw error;
+    }
+  }
   
   public async getManageProject(projectId: number) {
     try {
@@ -96,6 +105,16 @@ class UserRepository extends BaseRepository<IUser> {
       return pms;
     } catch (error) {
       throw error;
+    }
+  }
+  public async findUserById(id : number) {
+    try {
+      let user = await User.findOne({id })
+      if(!user) return 
+      return user 
+    } catch (error) {
+      console.log(error)
+    
     }
   }
 }

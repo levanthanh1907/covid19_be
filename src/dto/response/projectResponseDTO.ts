@@ -4,7 +4,7 @@ import { MemberType, ProjectStatus, ProjectType } from "../../type/projectType";
 export interface GetProjectResDTO extends IResponse {
   result: {
     name: string;
-    code: string;
+    properties: string;
     status: ProjectStatus;
     timeStart: Date;
     timeEnd: Date;

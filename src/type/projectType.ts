@@ -1,6 +1,6 @@
 export enum ProjectStatus {
-    "Active",
-    "Deactive",
+    "Chọn",
+    "Bỏ chọn",
   }
   
   export enum ProjectType {
@@ -9,8 +9,8 @@ export enum ProjectStatus {
   }
   
   export enum MemberType {
-    "Member",
-    "Project Manager",
-    "Deactive",
+    "Bệnh nhân",
+    "Quản trị",
+    "Bỏ chọn",
   }
   

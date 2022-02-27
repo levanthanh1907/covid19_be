@@ -1,1 +1,1 @@
-{"version":3,"file":"taskType.js","sourceRoot":"","sources":["../../src/type/taskType.ts"],"names":[],"mappings":";;;AAAA,IAAY,QAGT;AAHH,WAAY,QAAQ;IAChB,qDAAa,CAAA;IACb,mDAAY,CAAA;AACd,CAAC,EAHS,QAAQ,GAAR,gBAAQ,KAAR,gBAAQ,QAGjB"}
+{"version":3,"file":"taskType.js","sourceRoot":"","sources":["../../src/type/taskType.ts"],"names":[],"mappings":";;;AAAA,IAAY,QAGT;AAHH,WAAY,QAAQ;IAChB,2IAA+B,CAAA;IAC/B,uIAAkC,CAAA;AACpC,CAAC,EAHS,QAAQ,GAAR,gBAAQ,KAAR,gBAAQ,QAGjB"}

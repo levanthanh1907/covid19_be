@@ -15,7 +15,7 @@ const projectType_1 = require("../type/projectType");
 exports.ProjectSchema = new mongoose_1.Schema({
     _id: mongoose_1.Types.ObjectId,
     name: { type: String, require: true, unique: true },
-    code: { type: String, require: true, unique: true },
+    properties: { type: String, require: true, unique: true },
     status: { type: Number, enum: Object.values(projectType_1.ProjectStatus) },
     timeStart: { type: Date, default: Date.now },
     timeEnd: { type: Date, default: Date.now },

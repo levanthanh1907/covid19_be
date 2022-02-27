@@ -11,6 +11,7 @@ import { GetAllPaggingReqDTO } from "../dto/request/getAllPaggingReqDTO";
 import { GetAllPaggingResDTO } from "../dto/response/getAll/getAllPaggingResDTO";
 import { GetAllUserResDTO } from "../dto/response/getAll/getAllUserResDTO";
 import { IResponse } from "../interfaces/responseInterface";
+import { GetAllUserNotPaggingResDTO } from "../dto/response/getAll/getAllUserNotPagging";
 
 class UserService implements IService {
   roleRepository: any;
@@ -144,6 +145,96 @@ class UserService implements IService {
     }
   };
 
+  getUser = async (req: Request, res: Response, next: NextFunction) => {
+    let id = req.query.id as string;
+    let response: GetUserResDTO = {
+      result: null,
+      targetUrl: null,
+      success: false,
+      error: null,
+      unAuthRequest: false,
+      __abp: true,
+    };
+
+    try {
+      let getUser = await this.userRepository.findById(parseInt(id));
+      getUser = get(getUser, [
+        "userName",
+        "name",
+        "surname",
+        "emailAddress",
+        "phoneNumber",
+        "address",
+        "isActive",
+        "fullName",
+        "roleNames",
+        "type",
+        "salary",
+        "salaryAt",
+        "startDateAt",
+        "allowedLeaveDay",
+        "userCode",
+        "jobTitle",
+        "level",
+        "registerWorkDay",
+        "managerId",
+        "branch",
+        "sex",
+        "avatarPath",
+        "morningWorking",
+        "morningStartAt",
+        "morningEndAt",
+        "afternoonWorking",
+        "afternoonStartAt",
+        "afternoonEndAt",
+        "isWorkingTimeDefault",
+        "isStopWork",
+        "id",
+      ]);
+      response = {
+        ...response,
+        success: true,
+        result: getUser,
+      };
+      res.status(200).json(response);
+    } catch (error) {
+      response = {
+        ...response,
+        error: {
+          code: 0,
+          message: `Not Found ${id}`,
+          details: null,
+          validationErrors: null,
+        },
+      };
+      res.status(404).json(response);
+    }
+  };
+
+  getUserNotPagging = async (req: Request, res: Response, next: NextFunction) => {
+    let response: GetAllUserNotPaggingResDTO = {
+      result: null,
+      targetUrl: null,
+      success: false,
+      error: null,
+      unAuthRequest: false,
+      __abp: true,
+    };
+
+    try {
+      let user = await this.userRepository.findUserNotPagging();
+      response = {
+        ...response,
+        result: user,
+        success: true,
+      };
+      res.status(200).json(response);
+    } catch (error) {
+      next(error);
+    }
+  };
+
+
   getAllPagging = async (req: Request, res: Response, next: NextFunction) => {
     let filter: GetAllPaggingReqDTO = req.body;
     let response: GetAllPaggingResDTO = {
@@ -194,6 +285,161 @@ class UserService implements IService {
       next(error);
     }
   };
+
+  // getRole = async (req: Request, res: Response, next: NextFunction) => {
+  //   let response: GetRoleResDTO = {
+  //     result: null,
+  //     targetUrl: null,
+  //     success: false,
+  //     error: null,
+  //     unAuthRequest: false,
+  //     __abp: true,
+  //   };
+
+  //   try {
+  //     let items = [];
+  //     let role = await this.roleRepository.findAll();
+  //     for (let item of role) {
+  //       let getRoles = get(item, [
+  //         "id",
+  //         "description",
+  //         "displayName",
+  //         "normalizedName",
+  //         "name",
+  //       ]);
+  //       items.push(getRoles);
+  //     }
+  //     response = {
+  //       ...response,
+  //       result: {
+  //         items: items,
+  //       },
+  //       success: true,
+  //     };
+  //     res.status(200).json(response);
+  //   } catch (error) {
+  //     response = {
+  //       ...response,
+  //       error: {
+  //         code: 0,
+  //         message: "Not Found",
+  //         details: null,
+  //         validationErrors: null,
+  //       },
+  //     };
+  //     res.status(404).json(response);
+  //   }
+  // };
+
+  // active = async (req: Request, res: Response, next: NextFunction) => {
+  //   let id = req.query.id as string;
+  //   let response: IResponse = {
+  //     result: null,
+  //     targetUrl: null,
+  //     success: false,
+  //     error: null,
+  //     unAuthRequest: false,
+  //     __abp: true,
+  //   };
+  //   try {
+  //     if (await this.userRepository.findById(parseInt(id))) {
+  //       await this.userRepository.activeUser(parseInt(id));
+  //       response = {
+  //         ...response,
+  //         success: true,
+  //       };
+  //       res.status(200).json(response);
+  //     } else {
+  //       response = {
+  //         ...response,
+  //         error: {
+  //           code: 0,
+  //           message: `This id ${id} is in a user ,You can't active user`,
+  //           details: null,
+  //           validationErrors: null,
+  //         },
+  //       };
+  //       res.status(500).json(response);
+  //     }
+  //   } catch (error) {
+  //     next(error);
+  //   }
+  // };
+
+  // deActive = async (req: Request, res: Response, next: NextFunction) => {
+  //   let id = req.query.id as string;
+  //   let response: IResponse = {
+  //     result: null,
+  //     targetUrl: null,
+  //     success: false,
+  //     error: null,
+  //     unAuthRequest: false,
+  //     __abp: true,
+  //   };
+  //   try {
+  //     if (await this.userRepository.findById(parseInt(id))) {
+  //       await this.userRepository.deActiveUser(parseInt(id));
+  //       response = {
+  //         ...response,
+  //         success: true,
+  //       };
+  //       res.status(200).json(response);
+  //     } else {
+  //       response = {
+  //         ...response,
+  //         error: {
+  //           code: 0,
+  //           message: `This id ${id} is in a user ,You can't deActive user`,
+  //           details: null,
+  //           validationErrors: null,
+  //         },
+  //       };
+  //       res.status(500).json(response);
+  //     }
+  //   } catch (error) {
+  //     next(error);
+  //   }
+  // };
+
+  // getAllManager = async (req: Request, res: Response, next: NextFunction) => {
+  //   let response: GetAllManagerDTO = {
+  //     result: null,
+  //     targetUrl: null,
+  //     success: false,
+  //     error: null,
+  //     unAuthRequest: false,
+  //     __abp: true,
+  //   };
+  //   try {
+  //     let result = [];
+  //     let allManager = await this.userRepository.findAllManager();
+  //     for (let item of allManager) {
+  //       let Manager = get(item, [
+  //         "avatarPath",
+  //         "brach",
+  //         "id",
+  //         "isActive",
+  //         "jobTitle",
+  //         "level",
+  //         "name",
+  //         "type",
+  //         "userCode",
+  //       ]);
+  //       let getAll = {
+  //         ...Manager,
+  //       };
+  //       result.push(getAll);
+  //     }
+  //     response = {
+  //       ...response,
+  //       success: true,
+  //       result: result,
+  //     };
+  //     res.status(200).json(response);
+  //   } catch (error) {
+  //     next(error);
+  //   }
+  // };
 
   getAll = async (req: Request, res: Response, next: NextFunction) => {
     let response: GetAllUserResDTO = {

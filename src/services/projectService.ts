@@ -10,6 +10,7 @@ import UserRepository from "../repositories/UserRepository";
 import get from "../middleware/get";
 import { GetProjectResDTO } from "../dto/Response/projectResponseDTO";
 import ProjectRepository from "../repositories/ProjectRepository";
+import { IProjectUser } from "../interfaces/ProjectUserInterface";
 
 class ProjectService implements IService {
   defaultMethod(
@@ -62,7 +63,7 @@ class ProjectService implements IService {
             "note",
             "status",
             "name",
-            "code",
+            "properties",
             "projectType",
             "customerId",
             "isAllUserBelongTo",
@@ -113,7 +114,7 @@ class ProjectService implements IService {
             "note",
             "status",
             "name",
-            "code",
+            "properties",
             "projectType",
             "customerId",
             "isAllUserBelongTo",
@@ -305,7 +306,7 @@ class ProjectService implements IService {
       );
       project = get(project, [
         "name",
-        "code",
+        "properties",
         "status",
         "note",
         "timeStart",
@@ -386,6 +387,56 @@ class ProjectService implements IService {
       res.status(200).json(response);
     } catch (error) {
       next(error);
+    }
+  };
+
+  getUserByProject = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      let response: IResponse = {
+        result: null,
+        targetUrl: null,
+        success: false,
+        error: null,
+        unAuthRequest: false,
+        __abp: true,
+      };
+
+      const { name } = req.params;
+      const project = await this.projectRepository.findProjectByName(name);
+      if (!project)
+        return res
+          .status(400)
+          .json({ success: false, message: "Not found project by name" });
+      const { id } = project;
+
+      const projectUser = await this.projectUserRepository.findByProjectId(id);
+
+      if (Array.isArray(projectUser) && projectUser.length === 0)
+        return res
+          .status(400)
+          .json({ success: false, message: "Not found project user" });
+
+      const userid = projectUser.map((user) => user.userId);
+
+      const user = await Promise.all(
+        userid.map((id) => this.userRepository.findUserById(id))
+      );
+      if (Array.isArray(user) && user.length === 0)
+        return res
+          .status(400)
+          .json({ success: false, message: "Not found user" });
+      response = {
+        ...response,
+        success: true,
+        result: user,
+      };
+      return res.status(200).json(response);
+    } catch (error) {
+      console.log(error);
     }
   };
 }

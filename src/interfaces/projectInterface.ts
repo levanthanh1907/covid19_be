@@ -5,7 +5,7 @@ import { ProjectStatus, ProjectType } from "../type/projectType";
 export interface IProject extends IBase, Document {
   id: number;
   name: string;
-  code: string;
+  properties: string;
   status: ProjectStatus;
   timeStart: Date;
   timeEnd: Date;

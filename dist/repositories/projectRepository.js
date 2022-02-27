@@ -89,6 +89,19 @@ class ProjectRepository extends baseRepository_1.BaseRepository {
             catch (error) { }
         });
     }
+    findProjectByName(name) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const project = yield projectModel_1.Project.findOne({ name });
+                if (!project)
+                    return;
+                return project;
+            }
+            catch (error) {
+                console.log(error);
+            }
+        });
+    }
 }
 module.exports = new ProjectRepository();
 //# sourceMappingURL=ProjectRepository.js.map

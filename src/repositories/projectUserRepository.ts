@@ -44,6 +44,7 @@ class ProjectUserRepository extends BaseRepository<IProjectUser> {
   public async findByProjectId(projectId: number): Promise<IProjectUser[]> {
     try {
       let project = await ProjectUser.find({ projectId });
+      if(!project) return 
       return project;
     } catch (error) {
       throw error;

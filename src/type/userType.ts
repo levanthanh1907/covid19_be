@@ -1,6 +1,7 @@
+
 export enum Sex {
-  Male,
-  Female,
+  "Nam",
+  "Nữ",
 }
 
 export enum TreatmentHospital {

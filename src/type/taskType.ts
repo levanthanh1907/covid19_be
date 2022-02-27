@@ -1,5 +1,5 @@
 export enum TaskType {
-    "Common Task",
-    "Other Task",
+    "Công việc khi cách ly tại nhà",
+    "Công việc khi cách ly tập trung ",
   }
   

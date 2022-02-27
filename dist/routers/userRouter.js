@@ -24,6 +24,7 @@ class UserRouter extends baseRouter_1.BaseRouter {
         this.router.get("/GetAll", this.userService.getAll);
         // this.router.post('/UpdateAvatar', uploadOne, this.userService.updateAvatar);
         this.router.post("/ResetPassword", this.userService.resetPassword);
+        this.router.get("/GetUserNotPagging", this.userService.getUserNotPagging);
     }
 }
 module.exports = new UserRouter().router;

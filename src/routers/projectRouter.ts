@@ -24,6 +24,8 @@ class ProjectRouter extends BaseRouter {
     this.router.post("/Inactive", this.projectService.Inactive);
     this.router.get("/getAll", this.projectService.getAll);
     this.router.get("/get", this.projectService.get);
+    this.router.get("/getUserByProject/:name", this.projectService.getUserByProject);
+
   }
 }
 

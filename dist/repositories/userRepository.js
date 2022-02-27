@@ -90,6 +90,17 @@ class UserRepository extends baseRepository_1.BaseRepository {
             }
         });
     }
+    findUserNotPagging() {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                let findUser = yield userModel_1.User.find().select("id fullName TreatmentHospital avatarPath");
+                return findUser;
+            }
+            catch (error) {
+                throw error;
+            }
+        });
+    }
     getManageProject(projectId) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
@@ -106,6 +117,19 @@ class UserRepository extends baseRepository_1.BaseRepository {
             }
             catch (error) {
                 throw error;
+            }
+        });
+    }
+    findUserById(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                let user = yield userModel_1.User.findOne({ id });
+                if (!user)
+                    return;
+                return user;
+            }
+            catch (error) {
+                console.log(error);
             }
         });
     }

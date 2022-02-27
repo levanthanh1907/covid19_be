@@ -3,8 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.MemberType = exports.ProjectType = exports.ProjectStatus = void 0;
 var ProjectStatus;
 (function (ProjectStatus) {
-    ProjectStatus[ProjectStatus["Active"] = 0] = "Active";
-    ProjectStatus[ProjectStatus["Deactive"] = 1] = "Deactive";
+    ProjectStatus[ProjectStatus["Ch\u1ECDn"] = 0] = "Ch\u1ECDn";
+    ProjectStatus[ProjectStatus["B\u1ECF ch\u1ECDn"] = 1] = "B\u1ECF ch\u1ECDn";
 })(ProjectStatus = exports.ProjectStatus || (exports.ProjectStatus = {}));
 var ProjectType;
 (function (ProjectType) {
@@ -13,8 +13,8 @@ var ProjectType;
 })(ProjectType = exports.ProjectType || (exports.ProjectType = {}));
 var MemberType;
 (function (MemberType) {
-    MemberType[MemberType["Member"] = 0] = "Member";
-    MemberType[MemberType["Project Manager"] = 1] = "Project Manager";
-    MemberType[MemberType["Deactive"] = 2] = "Deactive";
+    MemberType[MemberType["B\u1EC7nh nh\u00E2n"] = 0] = "B\u1EC7nh nh\u00E2n";
+    MemberType[MemberType["Qu\u1EA3n tr\u1ECB"] = 1] = "Qu\u1EA3n tr\u1ECB";
+    MemberType[MemberType["B\u1ECF ch\u1ECDn"] = 2] = "B\u1ECF ch\u1ECDn";
 })(MemberType = exports.MemberType || (exports.MemberType = {}));
 //# sourceMappingURL=projectType.js.map

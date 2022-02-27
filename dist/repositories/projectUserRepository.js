@@ -59,6 +59,8 @@ class ProjectUserRepository extends baseRepository_1.BaseRepository {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 let project = yield projectUserModel_1.ProjectUser.find({ projectId });
+                if (!project)
+                    return;
                 return project;
             }
             catch (error) {

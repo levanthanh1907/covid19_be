@@ -50,7 +50,7 @@ class ProjectService {
                             "note",
                             "status",
                             "name",
-                            "code",
+                            "properties",
                             "projectType",
                             "customerId",
                             "isAllUserBelongTo",
@@ -90,7 +90,7 @@ class ProjectService {
                             "note",
                             "status",
                             "name",
-                            "code",
+                            "properties",
                             "projectType",
                             "customerId",
                             "isAllUserBelongTo",
@@ -242,7 +242,7 @@ class ProjectService {
                 const users = yield this.projectUserRepository.findByProjectId(parseInt(projectId));
                 project = (0, get_1.default)(project, [
                     "name",
-                    "code",
+                    "properties",
                     "status",
                     "note",
                     "timeStart",
@@ -307,6 +307,41 @@ class ProjectService {
             }
             catch (error) {
                 next(error);
+            }
+        });
+        this.getUserByProject = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                let response = {
+                    result: null,
+                    targetUrl: null,
+                    success: false,
+                    error: null,
+                    unAuthRequest: false,
+                    __abp: true,
+                };
+                const { name } = req.params;
+                const project = yield this.projectRepository.findProjectByName(name);
+                if (!project)
+                    return res
+                        .status(400)
+                        .json({ success: false, message: "Not found project by name" });
+                const { id } = project;
+                const projectUser = yield this.projectUserRepository.findByProjectId(id);
+                if (Array.isArray(projectUser) && projectUser.length === 0)
+                    return res
+                        .status(400)
+                        .json({ success: false, message: "Not found project user" });
+                const userid = projectUser.map((user) => user.userId);
+                const user = yield Promise.all(userid.map((id) => this.userRepository.findUserById(id)));
+                if (Array.isArray(user) && user.length === 0)
+                    return res
+                        .status(400)
+                        .json({ success: false, message: "Not found user" });
+                response = Object.assign(Object.assign({}, response), { success: true, result: user });
+                return res.status(200).json(response);
+            }
+            catch (error) {
+                console.log(error);
             }
         });
     }

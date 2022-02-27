@@ -120,6 +120,82 @@ class UserService {
                 next(error);
             }
         });
+        this.getUser = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+            let id = req.query.id;
+            let response = {
+                result: null,
+                targetUrl: null,
+                success: false,
+                error: null,
+                unAuthRequest: false,
+                __abp: true,
+            };
+            try {
+                let getUser = yield this.userRepository.findById(parseInt(id));
+                getUser = (0, get_1.default)(getUser, [
+                    "userName",
+                    "name",
+                    "surname",
+                    "emailAddress",
+                    "phoneNumber",
+                    "address",
+                    "isActive",
+                    "fullName",
+                    "roleNames",
+                    "type",
+                    "salary",
+                    "salaryAt",
+                    "startDateAt",
+                    "allowedLeaveDay",
+                    "userCode",
+                    "jobTitle",
+                    "level",
+                    "registerWorkDay",
+                    "managerId",
+                    "branch",
+                    "sex",
+                    "avatarPath",
+                    "morningWorking",
+                    "morningStartAt",
+                    "morningEndAt",
+                    "afternoonWorking",
+                    "afternoonStartAt",
+                    "afternoonEndAt",
+                    "isWorkingTimeDefault",
+                    "isStopWork",
+                    "id",
+                ]);
+                response = Object.assign(Object.assign({}, response), { success: true, result: getUser });
+                res.status(200).json(response);
+            }
+            catch (error) {
+                response = Object.assign(Object.assign({}, response), { error: {
+                        code: 0,
+                        message: `Not Found ${id}`,
+                        details: null,
+                        validationErrors: null,
+                    } });
+                res.status(404).json(response);
+            }
+        });
+        this.getUserNotPagging = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+            let response = {
+                result: null,
+                targetUrl: null,
+                success: false,
+                error: null,
+                unAuthRequest: false,
+                __abp: true,
+            };
+            try {
+                let user = yield this.userRepository.findUserNotPagging();
+                response = Object.assign(Object.assign({}, response), { result: user, success: true });
+                res.status(200).json(response);
+            }
+            catch (error) {
+                next(error);
+            }
+        });
         this.getAllPagging = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
             let filter = req.body;
             let response = {
@@ -160,6 +236,156 @@ class UserService {
                 next(error);
             }
         });
+        // getRole = async (req: Request, res: Response, next: NextFunction) => {
+        //   let response: GetRoleResDTO = {
+        //     result: null,
+        //     targetUrl: null,
+        //     success: false,
+        //     error: null,
+        //     unAuthRequest: false,
+        //     __abp: true,
+        //   };
+        //   try {
+        //     let items = [];
+        //     let role = await this.roleRepository.findAll();
+        //     for (let item of role) {
+        //       let getRoles = get(item, [
+        //         "id",
+        //         "description",
+        //         "displayName",
+        //         "normalizedName",
+        //         "name",
+        //       ]);
+        //       items.push(getRoles);
+        //     }
+        //     response = {
+        //       ...response,
+        //       result: {
+        //         items: items,
+        //       },
+        //       success: true,
+        //     };
+        //     res.status(200).json(response);
+        //   } catch (error) {
+        //     response = {
+        //       ...response,
+        //       error: {
+        //         code: 0,
+        //         message: "Not Found",
+        //         details: null,
+        //         validationErrors: null,
+        //       },
+        //     };
+        //     res.status(404).json(response);
+        //   }
+        // };
+        // active = async (req: Request, res: Response, next: NextFunction) => {
+        //   let id = req.query.id as string;
+        //   let response: IResponse = {
+        //     result: null,
+        //     targetUrl: null,
+        //     success: false,
+        //     error: null,
+        //     unAuthRequest: false,
+        //     __abp: true,
+        //   };
+        //   try {
+        //     if (await this.userRepository.findById(parseInt(id))) {
+        //       await this.userRepository.activeUser(parseInt(id));
+        //       response = {
+        //         ...response,
+        //         success: true,
+        //       };
+        //       res.status(200).json(response);
+        //     } else {
+        //       response = {
+        //         ...response,
+        //         error: {
+        //           code: 0,
+        //           message: `This id ${id} is in a user ,You can't active user`,
+        //           details: null,
+        //           validationErrors: null,
+        //         },
+        //       };
+        //       res.status(500).json(response);
+        //     }
+        //   } catch (error) {
+        //     next(error);
+        //   }
+        // };
+        // deActive = async (req: Request, res: Response, next: NextFunction) => {
+        //   let id = req.query.id as string;
+        //   let response: IResponse = {
+        //     result: null,
+        //     targetUrl: null,
+        //     success: false,
+        //     error: null,
+        //     unAuthRequest: false,
+        //     __abp: true,
+        //   };
+        //   try {
+        //     if (await this.userRepository.findById(parseInt(id))) {
+        //       await this.userRepository.deActiveUser(parseInt(id));
+        //       response = {
+        //         ...response,
+        //         success: true,
+        //       };
+        //       res.status(200).json(response);
+        //     } else {
+        //       response = {
+        //         ...response,
+        //         error: {
+        //           code: 0,
+        //           message: `This id ${id} is in a user ,You can't deActive user`,
+        //           details: null,
+        //           validationErrors: null,
+        //         },
+        //       };
+        //       res.status(500).json(response);
+        //     }
+        //   } catch (error) {
+        //     next(error);
+        //   }
+        // };
+        // getAllManager = async (req: Request, res: Response, next: NextFunction) => {
+        //   let response: GetAllManagerDTO = {
+        //     result: null,
+        //     targetUrl: null,
+        //     success: false,
+        //     error: null,
+        //     unAuthRequest: false,
+        //     __abp: true,
+        //   };
+        //   try {
+        //     let result = [];
+        //     let allManager = await this.userRepository.findAllManager();
+        //     for (let item of allManager) {
+        //       let Manager = get(item, [
+        //         "avatarPath",
+        //         "brach",
+        //         "id",
+        //         "isActive",
+        //         "jobTitle",
+        //         "level",
+        //         "name",
+        //         "type",
+        //         "userCode",
+        //       ]);
+        //       let getAll = {
+        //         ...Manager,
+        //       };
+        //       result.push(getAll);
+        //     }
+        //     response = {
+        //       ...response,
+        //       success: true,
+        //       result: result,
+        //     };
+        //     res.status(200).json(response);
+        //   } catch (error) {
+        //     next(error);
+        //   }
+        // };
         this.getAll = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
             let response = {
                 result: null,
