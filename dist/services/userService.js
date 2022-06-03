@@ -48,6 +48,8 @@ class UserService {
                 newUser = (0, get_1.default)(newUser, [
                     "id",
                     "userName",
+                    "timeStart",
+                    "timeEnd",
                     "emailAddress",
                     "name",
                     "surname",
@@ -83,6 +85,8 @@ class UserService {
                 updateUser = (0, get_1.default)(updateUser, [
                     "id",
                     "userName",
+                    "timeStart",
+                    "timeEnd",
                     "emailAddress",
                     "name",
                     "surname",
@@ -137,6 +141,8 @@ class UserService {
                     "name",
                     "surname",
                     "emailAddress",
+                    "timeStart",
+                    "timeEnd",
                     "phoneNumber",
                     "address",
                     "isActive",
@@ -213,6 +219,8 @@ class UserService {
                     let list = (0, get_1.default)(user, [
                         "id",
                         "userName",
+                        "timeStart",
+                        "timeEnd",
                         "emailAddress",
                         "name",
                         "surname",

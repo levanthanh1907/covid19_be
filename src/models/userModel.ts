@@ -16,6 +16,8 @@ export const UserSchema: Schema = new Schema(
       requied: [true, "The PassWord field is required"],
       minlength: [6, "password can't be shorter than 6 characters"],
     },
+    timeStart: { type: Date, default: Date.now },
+    timeEnd: { type: Date, default: Date.now },
     emailAddress: {
       type: String,
       required: "Email address is required",
@@ -28,7 +30,10 @@ export const UserSchema: Schema = new Schema(
     phoneNumber: { type: String, default: null },
     roleNames: [String],
     avatarPath: { type: String, default: null },
-    TreatmentHospital: { type: TreatmentHospital, enum: Object.values(TreatmentHospital) },
+    TreatmentHospital: {
+      type: TreatmentHospital,
+      enum: Object.values(TreatmentHospital),
+    },
     sex: { type: Sex, enum: Object.values(Sex) },
   },
   {

@@ -61,6 +61,8 @@ class UserService implements IService {
       newUser = get(newUser, [
         "id",
         "userName",
+        "timeStart",
+        "timeEnd",
         "emailAddress",
         "name",
         "surname",
@@ -100,6 +102,8 @@ class UserService implements IService {
       updateUser = get(updateUser, [
         "id",
         "userName",
+        "timeStart",
+        "timeEnd",
         "emailAddress",
         "name",
         "surname",
@@ -163,6 +167,8 @@ class UserService implements IService {
         "name",
         "surname",
         "emailAddress",
+        "timeStart",
+        "timeEnd",
         "phoneNumber",
         "address",
         "isActive",
@@ -211,7 +217,11 @@ class UserService implements IService {
     }
   };
 
-  getUserNotPagging = async (req: Request, res: Response, next: NextFunction) => {
+  getUserNotPagging = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
     let response: GetAllUserNotPaggingResDTO = {
       result: null,
       targetUrl: null,
@@ -233,7 +243,6 @@ class UserService implements IService {
       next(error);
     }
   };
-
 
   getAllPagging = async (req: Request, res: Response, next: NextFunction) => {
     let filter: GetAllPaggingReqDTO = req.body;
@@ -257,6 +266,8 @@ class UserService implements IService {
         let list = get(user, [
           "id",
           "userName",
+          "timeStart",
+          "timeEnd",
           "emailAddress",
           "name",
           "surname",

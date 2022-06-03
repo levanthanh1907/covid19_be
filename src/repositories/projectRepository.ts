@@ -13,7 +13,7 @@ class ProjectRepository extends BaseRepository<IProject> {
     let newProject: IProject = new Project({
       _id: Types.ObjectId(),
       ...project,
-      id
+      id,
     });
     try {
       await newProject.save();
@@ -62,27 +62,24 @@ class ProjectRepository extends BaseRepository<IProject> {
   public async findStatus(status: number, search: string): Promise<IProject[]> {
     try {
       let findProject = new RegExp(search, "i");
-      if(status == 0) {
+      if (status == 0) {
         return await Project.find({ status: 0, name: findProject });
-      }
-      else if(status == 1) {
+      } else if (status == 1) {
         return await Project.find({ status: 1, name: findProject });
-      }
-      else {
-        return await Project.find({ name: findProject })
+      } else {
+        return await Project.find({ name: findProject });
       }
     } catch (error) {}
   }
 
-  public async findProjectByName(name : string) {
+  public async findProjectByName(name: string) {
     try {
-      const project = await Project.findOne({name })
-      
-      if(!project) return
-      return project
-    } catch (error) {
+      const project = await Project.findOne({ name });
 
-      console.log(error)
+      if (!project) return;
+      return project;
+    } catch (error) {
+      console.log(error);
     }
   }
 }

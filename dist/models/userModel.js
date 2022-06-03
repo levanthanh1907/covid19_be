@@ -25,6 +25,8 @@ exports.UserSchema = new mongoose_1.Schema({
         requied: [true, "The PassWord field is required"],
         minlength: [6, "password can't be shorter than 6 characters"],
     },
+    timeStart: { type: Date, default: Date.now },
+    timeEnd: { type: Date, default: Date.now },
     emailAddress: {
         type: String,
         required: "Email address is required",
@@ -37,7 +39,10 @@ exports.UserSchema = new mongoose_1.Schema({
     phoneNumber: { type: String, default: null },
     roleNames: [String],
     avatarPath: { type: String, default: null },
-    TreatmentHospital: { type: userType_1.TreatmentHospital, enum: Object.values(userType_1.TreatmentHospital) },
+    TreatmentHospital: {
+        type: userType_1.TreatmentHospital,
+        enum: Object.values(userType_1.TreatmentHospital),
+    },
     sex: { type: userType_1.Sex, enum: Object.values(userType_1.Sex) },
 }, {
     timestamps: true,
